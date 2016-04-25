@@ -1,0 +1,49 @@
+ul,ol,li,body{
+	padding: 0;
+	margin: 0;
+}
+a{
+	text-decoration: none;
+}
+@blue: #3B5998;
+@active: #FF7700;
+.inline{
+	display: inline;
+}
+.inline-block{
+	display: inline-block;
+}
+.block{
+	display: block;
+}
+.hidden{
+	display: none;
+}
+.size(@width,@height){
+	width: @width;
+	height: @height;
+}
+
+
+/*头部*/
+.header{
+	height: 60px;
+	line-height: 60px;
+	padding: 0 20px;
+	background-color: @blue;
+	h1{
+		font-size: 24px;
+		color: white;
+	}
+}
+/*底部*/
+.footer{
+	height: 80px;
+	line-height: 80px;
+	p{
+		line-height: 80px;
+		background-color: #EFEFEF;
+		font-size: 14px;
+		text-align: center;
+	}
+}

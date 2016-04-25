@@ -1,0 +1,82 @@
+@import (reference) "common.less";
+.car-nav-title{
+	padding: 0 20px;
+	h2{
+		line-height: 60px;
+		font-size: 16px;
+		color: black;
+		font-weight: bold;
+		border-bottom: 1px solid #ccc;
+	}
+	
+}
+.car-nav-row{
+	min-height: 50px;
+	font-size: 14px;
+	border-bottom: 1px dashed #ccd3e4;
+	span{
+		.inline-block;
+		padding: 13px 0;
+		.size(80px,24px);
+		line-height: 24px;
+	}
+	.nav-list{
+		.inline-block;
+		height: 24px;
+		padding: 13px 0;
+		a{
+			.inline-block;
+			height: 24px;
+			line-height: 24px;
+			margin: 0 20px;
+			padding: 0px 6px;
+			&.active{
+				background-color: @active;
+				color: white;
+			}
+		}
+	}
+}
+.car-content{
+	padding: 20px 0;
+	border-top: 1px solid #999;
+	margin-top: -1px;
+}
+.car-list{
+	padding: 10px;
+	border: 1px solid #ccc;
+	.inline-block;
+	.name{
+		font-size: 14px;
+		line-height: 22px;
+		color: @blue;
+	}
+	.img{
+		.size(160px,120px);
+		padding-bottom: 4px;
+		img{
+			.size(100%,100%);
+		}
+	}
+	.price{
+		font-size: 12px;
+		color: #999;
+		height: 24px;
+		line-height: 24px;
+		a{
+			color: red;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
