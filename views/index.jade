@@ -1,5 +1,6 @@
 extends layout
 block head
+	title #{title}
 	link(rel="stylesheet", href="stylesheets/car.css")
 block content
 	.car-nav-title
@@ -7,14 +8,17 @@ block content
 		.car-nav-row
 			span 类型
 			.nav-list
-				a.active SUV
+				a.active 全部
+				a SUV
 		.car-nav-row
 			span 品牌
 			.nav-list
+				a.active 全部
 				a 宝马
 		.car-nav-row
 			span 变速箱
 			.nav-list
+				a.active 全部
 				a 自动
 				a 手动
 		.car-content
