@@ -22,11 +22,12 @@ block content
 				a 自动
 				a 手动
 		.car-content
-			.car-list
-				h3.name 奔驰C级
-				.img
-					img(src="images/car/benci-c.jpg", alt="奔驰C级")
-				.price
-					指导价：
-					a 31.48-59.90万
+			each car in car_list
+				.car-list
+					h3.name #{car.name}
+					.img
+						img(src="images/car/benci-c.jpg", alt="奔驰C级")
+					.price
+						指导价：
+						a 31.48-59.90万
 

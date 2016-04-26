@@ -8,17 +8,29 @@ var carSchema = new mongoose.Schema({
     name: String
 })
 var Car = mongoose.model('car', carSchema);
-
-Car.find({},function(err,cars){
-    if(err){
-        return console.error(err);
-    }
-    console.log('result:');
-    console.log(cars);
+/*var bmw = new Car({
+    name: '奥迪A4'
 })
+bmw.save(function(err){
+    if(err){
+        return console.error('保存失败');
+    }else{
+        return console.log('保存成功');
+    }
+})*/
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: '汽车目录' });
+    Car.find({},function(err,cars){
+        if(err){
+            return console.error(err);
+        }
+        res.render('index', {
+            title: '汽车目录',
+            car_list: cars
+        });
+    })
+    
 });
 
 module.exports = router;
