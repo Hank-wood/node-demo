@@ -14,21 +14,20 @@
 	min-height: 50px;
 	font-size: 14px;
 	border-bottom: 1px dashed #ccd3e4;
-	span{
+	>span{
 		.inline-block;
+		float: left;
 		padding: 13px 0;
 		.size(80px,24px);
 		line-height: 24px;
 	}
 	.nav-list{
-		.inline-block;
-		height: 24px;
-		padding: 13px 0;
+		padding: 13px 0 13px 80px;
 		a{
 			.inline-block;
 			height: 24px;
 			line-height: 24px;
-			margin: 0 20px;
+			margin: 4px 20px;
 			padding: 0px 6px;
 			&.active{
 				background-color: @active;

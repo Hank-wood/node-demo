@@ -1,34 +1,32 @@
 var express = require('express');
-//var mongoose = require('../config/connectMongo.js');
-
 var router = express.Router();
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/car');
+var mongoose = require('../config/connectMongo.js');
 var carSchema = new mongoose.Schema({
     name: String
 })
-var Car = mongoose.model('car', carSchema);
-/*var bmw = new Car({
-    name: '奥迪A4'
+var brandSchema = new mongoose.Schema({
+    name: String,
+    id: Number
 })
-bmw.save(function(err){
-    if(err){
-        return console.error('保存失败');
-    }else{
-        return console.log('保存成功');
-    }
-})*/
+var Car = mongoose.model('car', carSchema,'cars');
+var Brand = mongoose.model('brand', brandSchema,'brand');
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
     Car.find({},function(err,cars){
         if(err){
             return console.error(err);
         }
-        res.render('index', {
-            title: '汽车目录',
-            car_list: cars
-        });
+        Brand.find({},function(err,brands){
+            if(err){
+                return console.error(err);
+            }
+            console.log(brands)
+            res.render('index', {
+                title: '汽车目录',
+                car_list: cars,
+                brands: brands
+            });
+        })    
     })
     
 });

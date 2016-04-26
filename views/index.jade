@@ -14,7 +14,10 @@ block content
 			span 品牌
 			.nav-list
 				a.active 全部
-				a 宝马
+				each brand,index in brands
+					- var attributes = {'data-id': brand.id}
+					a(href="")&attributes(attributes) #{brand.name}
+
 		.car-nav-row
 			span 变速箱
 			.nav-list
