@@ -1,0 +1,16 @@
+extends layout
+block head
+	title #{title}
+	link(rel="stylesheet", href="stylesheets/car.css")
+block content
+	.car-nav-title
+		.car-content
+			.car-list
+				h3.name #{info.name}
+				a(href="search_car?_id=#{info._id}")
+					.img
+						img(src="images/car/benci-c.jpg", alt="")
+				.price
+					指导价：
+					a #{info.price}万
+

@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('../config/connectMongo.js');
 var carSchema = new mongoose.Schema({
-    name: String
+    name: String,
+    price: Number
 })
 var brandSchema = new mongoose.Schema({
     name: String,
@@ -16,11 +17,11 @@ router.get('/', function(req, res, next) {
         if(err){
             return console.error(err);
         }
+        console.log(cars)
         Brand.find({},function(err,brands){
             if(err){
                 return console.error(err);
             }
-            console.log(brands)
             res.render('index', {
                 title: '汽车目录',
                 car_list: cars,
@@ -30,5 +31,18 @@ router.get('/', function(req, res, next) {
     })
     
 });
-
+var ObjectId = mongoose.ObjectId;
+router.get('/search_car',function(req,res,next){
+	console.log(req.query._id)
+	Car.findById(req.query._id,function(err,car){
+		if(err){
+			return console.error(err);
+		}
+		console.log('结果：')
+		console.log(car)
+		res.render('car_info',{
+			info: car
+		})
+	})
+})
 module.exports = router;
