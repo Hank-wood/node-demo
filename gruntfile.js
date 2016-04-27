@@ -44,7 +44,6 @@ module.exports = function(grunt){
     // 加载插件
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-babel');
     // 自定义任务
     grunt.registerTask("default",["watch"]);
 //modules结尾 

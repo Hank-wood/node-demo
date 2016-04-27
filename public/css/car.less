@@ -68,8 +68,57 @@
 		}
 	}
 }
+.comments{
+	padding: 0 20px;
+	margin-bottom: 80px;
+	.add-comments{
+		textarea{
+			.block;
+			resize: none;
+			height: 140px;
+			width: ~'calc(100% - 14px)';
+			border-color: @borderColor;
+		}
+		>div{
+			text-align: right;
+			padding: 20px 0;
+			>span.success{
+				color: green;
+			}
+			>span.error{
+				color: red;
+			}
+		}
+		button{
+			.size(100px,30px);
+		}
+	}
+}
 
-
+.comments-list{
+	margin-top: 20px;
+	border-top: 1px solid @borderColor;
+	.list{
+		padding: 10px 0;
+		border-bottom: 1px dashed @borderColor;
+		.list-head{
+			line-height: 30px;
+			.date{
+				color: @grey;
+			}
+			.delete{
+				color: @grey;
+				&:hover{
+					text-decoration: underline;
+				}
+			}
+		}
+		>p{
+			padding: 10px 0;
+			line-height: 24px;
+		}
+	}
+}
 
 
 

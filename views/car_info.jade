@@ -16,14 +16,17 @@ block content
 	.comments
 		.add-comments
 			- var attributes = {'data-id': info._id}
-			textarea#comments-content(name="", cols="100", rows="10")&attributes(attributes)
-			button#add-comments(disabled="true") 添加评论
+			textarea#comments-content&attributes(attributes)
+			div
+				span#tips.hidden
+				button.btn#add-comments(disabled="true") 添加评论
 		.comments-list
-			.list
-				.list-head
-					span 2015-11-02 08:12:24
-					span.delete 删除
-				p 评论内容
+			each comment in comments
+				.list
+					.list-head
+						span.date #{comment.date}
+						span.fr.pointer.delete 删除
+					p #{comment.comments}
 block footer
 	script.
 		require(['js/car/info.js'],function(){})

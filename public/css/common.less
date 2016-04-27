@@ -1,12 +1,44 @@
-ul,ol,li,body{
+@blue: #3B5998;
+@active: #FF7700;
+@color: #555;
+@borderColor: #ccc;
+@grey: #999;
+body{
+	color: @color;
+	font-size: 14px;
+}
+ul,ol,li,button,input,textarea,body{
 	padding: 0;
 	margin: 0;
+}
+button,input,textarea{
+	border: 1px solid @borderColor;
+	outline: none;
+	padding: 0 6px;
+}
+button,input{
+	height: 28px;
+	line-height: 28px;
+}
+textarea{
+	padding: 6px;
 }
 a{
 	text-decoration: none;
 }
-@blue: #3B5998;
-@active: #FF7700;
+.btn{
+	.inline-block;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background-color: white;
+	cursor: pointer;
+	&:hover{
+		background-color: @color;
+		color: white;
+		border-color: black;
+	}
+}
 .inline{
 	display: inline;
 }
@@ -23,7 +55,15 @@ a{
 	width: @width;
 	height: @height;
 }
-
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.pointer{
+	cursor: pointer;
+}
 
 /*头部*/
 .header{

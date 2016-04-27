@@ -14,19 +14,27 @@ define([],function(){
         }
     })
     addComment.on('click',function(){
-        $.ajax({
-            url:"add_comments",
-            type: "post",
+        
+        $.queryData({
+            url: 'add_comments',
             data: {
                 id: comments.attr("data-id"),
                 comments: comments.val()
-            },
-            success: function(res){
-
-            },
-            error: function(res){
-
             }
+        },function(res){
+            if(res.code == 1){
+                $("#tips").attr({
+                    class: 'success'
+                }).html('发布成功！')
+                comments.empty();
+            }else{
+                $("#tips").attr({
+                    class: 'error'
+                }).html('发布失败！')
+            }
+            setTimeout(function(){
+                $("#tips").addClass('hidden');
+            },3000)
         })
     })
 

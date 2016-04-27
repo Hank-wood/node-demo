@@ -10,5 +10,7 @@ html
     block content
     script(src="common/js/jquery-1.11.3.min.js")
     script(src="common/js/require.js")
+    script.
+        require(['common/js/common.js'],function(){})
     block footer
     include ./footer.jade
