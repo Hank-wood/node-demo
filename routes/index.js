@@ -33,13 +33,10 @@ router.get('/', function(req, res, next) {
 });
 var ObjectId = mongoose.ObjectId;
 router.get('/search_car',function(req,res,next){
-	console.log(req.query._id)
 	Car.findById(req.query._id,function(err,car){
 		if(err){
 			return console.error(err);
 		}
-		console.log('结果：')
-		console.log(car)
 		res.render('car_info',{
 			info: car
 		})
