@@ -4,9 +4,9 @@ module.exports = function(grunt){
         // 配置watch任务
         watch: {
             // 要监听的文件
-            files: ["public/stylesheets/**.less","public/javascripts/**.js"],
+            files: ["public/css/**.less"],
             // 监听的文件发生变化时执行的任务
-            tasks: ["less","babel"]
+            tasks: ["less"]
         },
         less: {
             development: {
@@ -31,7 +31,7 @@ module.exports = function(grunt){
             dist: {
                 files: [{
                     expand: true,
-                    cwd: 'public/javascripts',
+                    cwd: 'public/js',
                     src: ['**/*.js'],
                     dest: 'public/dist',
                     ext: '.js'

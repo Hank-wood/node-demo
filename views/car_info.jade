@@ -1,7 +1,7 @@
 extends layout
 block head
 	title #{title}
-	link(rel="stylesheet", href="stylesheets/car.css")
+	link(rel="stylesheet", href="css/car.css")
 block content
 	.car-nav-title
 		.car-content
@@ -13,6 +13,18 @@ block content
 				.price
 					指导价：
 					a #{info.price}万
-
-	script(src="javascripts/car/info.js")
+	.comments
+		.add-comments
+			- var attributes = {'data-id': info._id}
+			textarea#comments-content(name="", cols="100", rows="10")&attributes(attributes)
+			button#add-comments(disabled="true") 添加评论
+		.comments-list
+			.list
+				.list-head
+					span 2015-11-02 08:12:24
+					span.delete 删除
+				p 评论内容
+block footer
+	script.
+		require(['js/car/info.js'],function(){})
 
