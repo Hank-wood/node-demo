@@ -12,7 +12,7 @@ var brandSchema = new mongoose.Schema({
     id: Number
 })
 var commentsSchema = new mongoose.Schema({
-    id: Number,
+    car_id: String,
     comments: String,
     datestamp: Number
 })
@@ -37,7 +37,7 @@ router.get('/', function(req, res, next) {
     })
 
 });
-//搜索
+//汽车详情
 router.get('/search_car',function(req,res,next){
 	var result = {};
     Car.findById(req.query._id,function(err,car){
@@ -47,7 +47,7 @@ router.get('/search_car',function(req,res,next){
         result.title = car.name+car.displacement;
         result.info = car;
     })
-    Comments.find({},function(err,comments){
+    Comments.find({car_id: String(req.query._id)},function(err,comments){
         if(err){
             return console.error(err);
         }
@@ -58,10 +58,14 @@ router.get('/search_car',function(req,res,next){
         res.render('car_info', result);
     })
 })
+//获取评论
+function getComments(opt){
+    
+}
 //添加评论
 router.post('/add_comments',function(req,res,next){
     var comments = new Comments({
-        id: req.body._id,
+        car_id: req.body.car_id,
         datestamp: Date.now(),
         comments: req.body.comments
     })
@@ -78,19 +82,5 @@ router.post('/add_comments',function(req,res,next){
         })
     });
 })
-//获取评论
-router.post('/get_comments',function(req,res,next){
-    Comments.find({},function(err,comments){
-        if(err){
-            res.send({
-                code: 0,
-                comments: '查询评论失败'
-            })
-        }
-        res.send({
-            code: 1,
-            comments: comments
-        })
-    })
-})
+
 module.exports = router;
