@@ -21,7 +21,7 @@ define([],function(){
             return false;
         }
         $.queryData({
-            url: 'add_comments',
+            url: 'addComments',
             data: {
                 car_id: comments.attr("data-id"),
                 comments: comments.val()

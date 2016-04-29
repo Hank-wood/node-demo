@@ -1,5 +1,3 @@
-var express = require('express');
-var router = express.Router();
 var mongoose = require('../config/connectMongo.js');
 var moment = require('moment');
 var carSchema = new mongoose.Schema({
@@ -20,7 +18,7 @@ var Car = mongoose.model('car', carSchema,'cars');
 var Brand = mongoose.model('brand', brandSchema,'brand');
 var Comments = mongoose.model('comments', commentsSchema,'comments');
 
-router.get('/', function(req, res, next) {
+exports.index = function(req, res, next) {
 	var result = {title: '汽车目录'};
     Car.find({},function(err,cars){
         if(err){
@@ -36,9 +34,9 @@ router.get('/', function(req, res, next) {
         res.render('index', result);
     })
 
-});
+};
 //汽车详情
-router.get('/search_car',function(req,res,next){
+exports.search = function(req,res,next){
 	var result = {};
     Car.findById(req.query._id,function(err,car){
         if(err){
@@ -57,13 +55,11 @@ router.get('/search_car',function(req,res,next){
         result.comments = comments || []; 
         res.render('car_info', result);
     })
-})
-//获取评论
-function getComments(opt){
-    
 }
+
 //添加评论
-router.post('/add_comments',function(req,res,next){
+exports.addComments = function(req,res,next){
+    console.info(req)
     var comments = new Comments({
         car_id: req.body.car_id,
         datestamp: Date.now(),
@@ -81,6 +77,5 @@ router.post('/add_comments',function(req,res,next){
             msg: 'success'
         })
     });
-})
+}
 
-module.exports = router;
