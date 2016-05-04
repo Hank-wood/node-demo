@@ -88,8 +88,10 @@ exports.signin = function(req, res, next) {
         }
         bcrypt.compare(req.body.password, user.password, function(err, isMatch){
             if(isMatch){
-                // return res.redirect('/');
-                req.session.user = user;
+            	req.session.user = user;
+            	// ajax请求无法跳转
+            	// return res.redirect('/');
+
                 res.send({
                     code: 1,
                     msg: '登录成功'

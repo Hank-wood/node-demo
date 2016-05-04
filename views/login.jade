@@ -11,8 +11,10 @@ block content
 				input(type="password" name="password" placeholder="请输入密码" required autocomplate="off")
 			.just-login
 				input(type="submit" id="login" value="登录")
-			.just-register
+				a.register 注册
+			.just-register.hidden
 				input(type="submit" id="register" value="注册")
+				a.sigin 登陆
 block footer
 	script.
 		require(['js/login.js'],function(){})
