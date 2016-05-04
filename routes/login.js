@@ -8,17 +8,16 @@ var userSchema = new mongoose.Schema({
     password: String
 })
 var User = mongoose.model('user',userSchema,'user');
-/*登录*/
+var reg = /^\s*$/;
+var SALT_WORK_FACTOR = 10;
+/*登录页面*/
 exports.index = function(req, res, next) {
     res.render('login',{
         title: '登录'
     });
 };
 /*注册*/
-exports.register = function(req, res, next) {
-    var reg = /^\s*$/;
-    var SALT_WORK_FACTOR = 10;
-    
+exports.register = function(req, res, next) {    
     if(!req.body || reg.test(req.body.username)){
         res.send({
             code: 0,
@@ -65,4 +64,42 @@ exports.register = function(req, res, next) {
     	})
     })
     
+};
+/*登录*/
+exports.signin = function(req, res, next) {
+    if(reg.test(req.body.username)){
+        res.send({
+            code: 0,
+            msg: '用户名不能为空'
+        })
+    }
+    if(reg.test(req.body.password)){
+        res.send({
+            code: 0,
+            msg: '密码不能为空'
+        })
+    }
+    User.findOne({username: req.body.username}, function(err, user){
+        if(!user){
+            res.send({
+                code: 0,
+                msg: '用户名不存在'
+            })
+        }
+        bcrypt.compare(req.body.password, user.password, function(err, isMatch){
+            if(isMatch){
+                // return res.redirect('/');
+                req.session.user = user;
+                res.send({
+                    code: 1,
+                    msg: '登录成功'
+                })
+            }else{
+                res.send({
+                    code: 0,
+                    msg: '密码错误'
+                })
+            }
+        })
+    })
 };

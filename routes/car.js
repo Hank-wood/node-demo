@@ -18,8 +18,9 @@ var Car = mongoose.model('car', carSchema,'cars');
 var Brand = mongoose.model('brand', brandSchema,'brand');
 var Comments = mongoose.model('comments', commentsSchema,'comments');
 
+
 exports.index = function(req, res, next) {
-	var result = {title: '汽车目录'};
+	var result = {title: '汽车目录'};                
     Car.find({},function(err,cars){
         if(err){
             return console.error(err);
@@ -35,6 +36,7 @@ exports.index = function(req, res, next) {
     })
 
 };
+
 //汽车详情
 exports.search = function(req,res,next){
 	var result = {};
