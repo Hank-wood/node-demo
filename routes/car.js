@@ -1,5 +1,6 @@
 var mongoose = require('../config/connectMongo.js');
 var moment = require('moment');
+var async = require('async');
 var carSchema = new mongoose.Schema({
     name: String,
     price: Number,
@@ -20,7 +21,26 @@ var Comments = mongoose.model('comments', commentsSchema,'comments');
 
 
 exports.index = function(req, res, next) {
-	var result = {title: '汽车目录'};                
+	var result = {title: '汽车目录'};
+    /*var getData = [
+        {
+            shcema: Car,
+            example: 'car_list'
+        },
+        {
+            shcema: Brand,
+            example: 'brands'
+        }
+    ]          
+    async.map(getData, function(item, callback){
+        item.shcema.find({}, function(err, res){
+            result[item.example] = res || [];
+        })
+    }, function(err,r){
+        console.log(r)
+        console.log('err: '+ err)
+    })
+        res.render('index', result);*/
     Car.find({},function(err,cars){
         if(err){
             return console.error(err);
