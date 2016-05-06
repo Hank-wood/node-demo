@@ -43,20 +43,6 @@ exports.index = function(req, res, next) {
         res.render('index', data);
     })
 
-    /*Car.find({},function(err,cars){
-        if(err){
-            return console.error(err);
-        }
-        data.car_list = cars || [];   
-    })
-    Brand.find({},function(err,brands){
-        if(err){
-            return console.error(err);
-        }
-        data.brands = brands || [];  
-        res.render('index', data);
-    })*/
-
 };
 
 //汽车详情
