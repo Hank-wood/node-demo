@@ -105,3 +105,7 @@ exports.signin = function(req, res, next) {
         })
     })
 };
+exports.signout = function(req,res){
+	delete req.session.user;
+	res.redirect('/login');
+}

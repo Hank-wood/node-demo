@@ -1,5 +1,6 @@
 var mongoose = require('../config/connectMongo.js');
 var moment = require('moment');
+var async = require('async');
 var carSchema = new mongoose.Schema({
     name: String,
     price: Number,
@@ -20,20 +21,41 @@ var Comments = mongoose.model('comments', commentsSchema,'comments');
 
 
 exports.index = function(req, res, next) {
-	var result = {title: '汽车目录'};                
-    Car.find({},function(err,cars){
+	var data = {title: '汽车目录'}; 
+    var getData = {
+        Car: {
+            schema: Car,
+            examples: 'car_list'
+        },
+        Brand: {
+            schema: Brand,
+            examples: 'brands'
+        }
+    }
+    async.map(getData, function(item, callback){
+        item.schema.find({},function(err, res){
+            callback(null, data[item.examples] = res || []);
+        })
+    },function(err,result){
+        if(err){
+            console.log(err);
+        } 
+        res.render('index', data);
+    })
+
+    /*Car.find({},function(err,cars){
         if(err){
             return console.error(err);
         }
-        result.car_list = cars || [];   
+        data.car_list = cars || [];   
     })
     Brand.find({},function(err,brands){
         if(err){
             return console.error(err);
         }
-        result.brands = brands || [];  
-        res.render('index', result);
-    })
+        data.brands = brands || [];  
+        res.render('index', data);
+    })*/
 
 };
 
