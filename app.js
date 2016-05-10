@@ -4,11 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var session = require('express-session');
-var mongoStore = require('connect-mongo')(session);
 var routes = require('./router');
 var app = express();
-app.local = {};
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -21,24 +19,8 @@ app.use(bodyParser.urlencoded({
 	extended: true
 }));
 app.use(cookieParser());
-app.use(session({
-	resave: false,
-	saveUninitialized: true,
-	secret: 'test',	
-	store: new mongoStore({
-		url: 'mongodb://localhost/car',
-		collection: 'session'
-	})
-}))
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(function(req,res,next){
-	if(req.session.user){
-		app.local.user = req.session.user;
-	}else if(req.path !='/login' && req.path != '/signin'){
-		return res.redirect('/login');
-	}
-	next();
-})
+
 routes(app);
 
 // catch 404 and forward to error handler
@@ -71,5 +53,5 @@ app.use(function(err, req, res, next) {
 		error: {}
 	});
 });
-// app.listen(3000);
+app.listen(3000);
 module.exports = app;

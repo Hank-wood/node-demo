@@ -1,0 +1,9 @@
+extends ../common/layout
+block head
+	title #{title}
+	link(rel="stylesheet", href="css/index/index.css")
+block content
+	.car-nav-title 这里是#{title}
+block footer
+	script.
+		require(['js/index/index.js'],function(){})

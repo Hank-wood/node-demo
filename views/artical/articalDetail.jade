@@ -1,0 +1,11 @@
+extends ../common/layout
+block head
+	title #{title}
+	link(rel="stylesheet", href="css/artical/articalDetail.css")
+block content
+    .car-nav-title 这里是#{title}
+	
+block footer
+	script.
+		require(['js/artical/articalDetail.js'],function(){})
+

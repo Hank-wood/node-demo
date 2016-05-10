@@ -1,12 +1,17 @@
-var car = require('./routes/car');
 var login = require('./routes/login');
+var index = require('./routes/index');
+var artical = require('./routes/artical');
+var user = require('./routes/users');
 
-module.exports = function(app){
-    app.get('/login',login.index);
-    app.post('/register',login.register);
-    app.post('/signin',login.signin);
-    app.get('/signout',login.signout);
-    app.get('/',car.index);
-    app.get('/search',car.search);
-    app.post('/addComments',car.addComments);
+module.exports = function(app) {
+    // 登录注册
+    app.get('/login', login.index);
+    app.post('/user/login', login.login);
+    app.get('/user/logout', login.logout);
+    app.post('/user/register', user.register);
+    // 首页
+    app.get('/', index.index);
+    // 文章
+    app.get('/artail/detail', artical.articalDetail);
+    app.post('/artail/addComments', artical.addComments);
 }
