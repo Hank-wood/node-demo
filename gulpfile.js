@@ -1,24 +1,28 @@
 var gulp = require('gulp');
     less = require('gulp-less'),
+    changed = require('gulp-changed'),
     minifyCSS = require('gulp-clean-css'),
-    jshint = require('gulp-jshint');
+    jshint = require('gulp-jshint'),
+    cssPath = 'public/css',
+    jsPath = 'public/js';
 
 gulp.task('less', function() {
-    return gulp.src('public/css/*.less')
+    return gulp.src(cssPath + '/**/*.less')
         .pipe(less({
-            paths: ['public/css']
+            paths: [cssPath]
         }))
+        .pipe(changed(cssPath))
         .pipe(minifyCSS())
-        .pipe(gulp.dest('public/css'))
+        .pipe(gulp.dest(cssPath))
 
 });
 gulp.task('jshint', function(){
-    gulp.src('public/js/car/*.js')
+    gulp.src(jsPath + '/**/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
 })
 gulp.task('watch', function(){
-    gulp.watch('public/css/*.less',['less']);
-    gulp.watch('public/js/car/*.js',['jshint']);
+    gulp.watch(cssPath + '/**/*.less',['less']);
+    gulp.watch(jsPath + '/**/*.js',['jshint']);
 })
 gulp.task('default',['less','watch'])
