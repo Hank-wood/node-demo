@@ -9,10 +9,15 @@ exports.index = function(req, res, next) {
 };
 
 //文章详情
-exports.articalDetail = function(req,res,next){
+exports.detail = function(req,res,next){
     var data = {title: '文章详情'}; 
     
     res.render('index', data);
+}
+//添加文章
+exports.add = function(req,res,next){
+    var data = {title: '添加文章'};
+    res.render('artical/add', data);
 }
 //addComments
 exports.addComments = function(req,res,next){

@@ -1,0 +1,19 @@
+extends ../common/layout
+block head
+	title #{title}
+	link(rel="stylesheet", href="css/artical/index.css")
+block content
+	.add-bolg
+		.title
+			input(type="text").artical-title
+		.content
+			textarea.artical-con(name="", cols="100", rows="40")
+		.classify
+			span 分类
+		.add-btn
+			button.release 发布
+	
+block footer
+	script.
+		require(['js/artical/add.js'],function(){})
+

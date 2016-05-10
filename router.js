@@ -12,6 +12,7 @@ module.exports = function(app) {
     // 首页
     app.get('/', index.index);
     // 文章
-    app.get('/artail/detail', artical.articalDetail);
+    app.get('/artail/add', artical.add);
+    app.get('/artail/detail', artical.detail);
     app.post('/artail/addComments', artical.addComments);
 }
