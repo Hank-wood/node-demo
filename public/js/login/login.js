@@ -4,13 +4,15 @@ define([],function(){
         var oForm = $('#form')[0];
 
         $.queryData({
-            url: 'register',
+            url: 'user/register',
             data: {
-                username: oForm.username.value,
+                name: oForm.name.value,
                 password: oForm.password.value
             }
         },function(res){
-
+            if(res.code === 0){
+                $("#error").html(res.msg);
+            }
         })
         event.preventDefault();
     })
@@ -18,9 +20,9 @@ define([],function(){
         var event = event || window.event;
         var oForm = $('#form')[0];
         $.queryData({
-            url: 'signin',
+            url: 'login',
             data: {
-                username: oForm.username.value,
+                name: oForm.name.value,
                 password: oForm.password.value
             }
         },function(res){

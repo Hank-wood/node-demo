@@ -1,8 +1,5 @@
 var mysql = require('../config/connectMysql.js');
-var bcrypt = require('bcrypt');
 
-var reg = /^\s*$/;
-var SALT_WORK_FACTOR = 10;
 /*登录页面*/
 exports.index = function(req, res, next) {
     res.render('login/login',{

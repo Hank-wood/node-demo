@@ -6,9 +6,10 @@ block content
 	.login
 		form#form(method="post")
 			.username
-				input(type="text" name="username" placeholder="用户名" required autocomplate="off")
+				input(type="text" name="name" placeholder="用户名" required autocomplate="off")
 			.password
 				input(type="password" name="password" placeholder="请输入密码" required autocomplate="off")
+				span#error
 			.just-login
 				input(type="submit" id="login" value="登录")
 				a.register 注册
