@@ -5,7 +5,7 @@ var reg = /^\s*$/;
 var SALT_WORK_FACTOR = 10;
 /*登录页面*/
 exports.index = function(req, res, next) {
-    res.render('login',{
+    res.render('login/login',{
         title: '登录'
     });
 };

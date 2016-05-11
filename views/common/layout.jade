@@ -1,16 +1,16 @@
 doctype html
 html
   head
-    link(rel="stylesheet", href="/common/css/cssreset-min.css")
-    link(rel='stylesheet', href='/common/css/common.css')
+    link(rel="stylesheet", href="css/common/cssreset-min.css")
+    link(rel='stylesheet', href='css/common/common.css')
     block head
   body
     include ./header.jade
     block header
     block content
-    script(src="/common/js/jquery-1.11.3.min.js")
-    script(src="/common/js/require.js")
+    script(src="js/common/jquery-1.11.3.min.js")
+    script(src="js/common/require.js")
     script.
-        require(['/common/js/common.js'],function(){})
+        require(['js/common/common.js'],function(){})
     block footer
     include ./footer.jade

@@ -3,7 +3,37 @@
 @color: #555;
 @borderColor: #ccc;
 @grey: #999;
-@disabled: #
+
+// clearfix via http://h5bp.com/q
+.clearfix() {
+    &:before,
+    &:after {
+        display: table;
+        content: "";
+    }
+    &:after {
+        clear: both;
+    }
+}
+.clearfix() when (@support-old-ie) {
+    *zoom: 1;
+}
+
+// size settings
+.size(@size) {
+    width: @size;
+    height: @size;
+}
+.size(@wdith, @height) {
+    width: @wdith;
+    height: @height;
+}
+
+.ellipsis() {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 body{
 	color: @color;
 	font-size: 14px;
@@ -55,10 +85,6 @@ a{
 }
 .hidden{
 	display: none;
-}
-.size(@width,@height){
-	width: @width;
-	height: @height;
 }
 .fl{
 	float: left;
