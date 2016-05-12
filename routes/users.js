@@ -1,10 +1,9 @@
 var query = require('../config/connectMysql.js');
     bcrypt = require('bcrypt'),
     reg = /^\s*$/,
-    SALT_WORK_FACTOR = 10;
+    nameValid = '';
 /*注册*/
 exports.register = function(req, res, next) {
-    var nameValid = '';
     if(!req.body || reg.test(req.body.username)){
         res.send({
             code: 0,
@@ -49,4 +48,45 @@ exports.register = function(req, res, next) {
         })
     })  
 }
-
+/*登录*/
+exports.login = function(req, res, next) {
+    if(reg.test(req.body.username)){
+        res.send({
+            code: 0,
+            msg: '用户名不能为空'
+        })
+    }
+    if(reg.test(req.body.password)){
+        res.send({
+            code: 0,
+            msg: '密码不能为空'
+        })
+    }
+    nameValid = "select * from user where name='"+req.body.name+"'";
+    query(nameValid, function(err, result, fields){
+        if(err){
+            return next(err);
+        }
+        if(result.length < 0){
+            return res.send({
+                code: 0,
+                msg: '用户名不存在'
+            })
+        }
+        bcrypt.compare(req.body.password, result[0].password, function(err, isMatch){
+            if(isMatch){
+                req.session.user = req.body;
+                res.restrict('/');
+            }else{
+                res.send({
+                    code: 0,
+                    msg: err
+                })
+            }
+        })
+    })
+};
+exports.logout = function(req,res){
+    delete req.session.user;
+    res.redirect('/login');
+}

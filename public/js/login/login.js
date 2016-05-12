@@ -20,7 +20,7 @@ define([],function(){
         var event = event || window.event;
         var oForm = $('#form')[0];
         $.queryData({
-            url: 'login',
+            url: 'user/login',
             data: {
                 name: oForm.name.value,
                 password: oForm.password.value
