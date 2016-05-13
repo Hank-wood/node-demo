@@ -1,6 +1,9 @@
 var query = require('../config/connectMysql.js');
     bcrypt = require('bcrypt'),
+    redis = require('redis'),
+    client = null,
     reg = /^\s*$/,
+    SALT_WORK_FACTOR = 10,
     nameValid = '';
 /*注册*/
 exports.register = function(req, res, next) {
@@ -75,8 +78,21 @@ exports.login = function(req, res, next) {
         }
         bcrypt.compare(req.body.password, result[0].password, function(err, isMatch){
             if(isMatch){
+                /*client = redis.createClient(6369, '127.0.0.1', {});
+                client.auth('09511');
+                client.select(0,function(){});
+                client.on('error', function(err){
+                    console.log(err);
+                })
+                // 设置值
+                client.set(result[0].id, result[0].name, redis.print)
+                // 取值
+                client.get(result[0].id, function(err, replies){
+
+                })*/
                 req.session.user = req.body;
-                res.restrict('/');
+                console.log(req.session)
+                res.redirect('/');
             }else{
                 res.send({
                     code: 0,

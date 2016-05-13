@@ -5,5 +5,5 @@ exports.index = function(req, res, next) {
     res.render('login/login',{
         title: '登录'
     });
-};
+}
 
