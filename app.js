@@ -9,7 +9,9 @@ var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var app = express();
 var redis = require('redis'),
-    client = null;
+    client = redis.createClient({
+    	host: 'localhost'
+    });
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -25,17 +27,18 @@ app.use(cookieParser());
 app.use(session({
 	store: new RedisStore({
 		host: 'localhost',
-		port: 6369
+		port: 6369,
+		client: client
 	}),
-	resave: false,
-	saveUninitialized: true,
+	resave: true,
+	saveUninitialized: false,
 	secret: 'bolg'
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req,res,next){
 	// console.log(req.path);
-	// console.log(req.session);
+	console.log(req.session);
 	if(!req.session.user && req.path != '/login' && req.path != '/user/register' && req.path != '/user/login'){
 		res.redirect('/login');
 	}
