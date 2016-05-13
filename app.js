@@ -25,13 +25,20 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(session({
+	// 每次访问服务器更新session过期时间
+	rolling: true,
+	// session存储方式 默认存储在内存中
 	store: new RedisStore({
 		host: 'localhost',
-		port: 6369,
 		client: client
 	}),
+	cookie: {
+		// 过期时间24小时
+		maxAge:  24*60*60*1000
+	},
 	resave: true,
 	saveUninitialized: false,
+	// 生成hash防治篡改
 	secret: 'bolg'
 }));
 app.use(express.static(path.join(__dirname, 'public')));
