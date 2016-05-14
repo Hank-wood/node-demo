@@ -1,6 +1,6 @@
 .header
 	h1.fl
-		a(href="/") node-demo
+		a(href="/") Nodejs微博
 	.user.fr
-		//- span #{user.username} ｜
-		a(href="/signout") 注销
+		span #{locals.user} ｜
+		a(href="/user/logout") 注销

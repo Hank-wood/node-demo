@@ -1,6 +1,6 @@
 var login = require('./routes/login');
 var index = require('./routes/index');
-var artical = require('./routes/artical');
+var wb = require('./routes/weibo');
 var user = require('./routes/users');
 
 module.exports = function(app) {
@@ -12,7 +12,7 @@ module.exports = function(app) {
     // 首页
     app.get('/', index.index);
     // 文章
-    app.get('/artical/add', artical.add);
-    app.get('/artical/detail', artical.detail);
-    app.post('/artical/addComments', artical.addComments);
+    app.post('/wb/add', wb.add);
+    app.get('/wb/detail', wb.detail);
+    app.post('/wb/addComments', wb.addComments);
 }

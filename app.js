@@ -45,9 +45,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req,res,next){
 	// console.log(req.path);
-	console.log(req.session);
+	// console.log(req.session);
 	if(!req.session.user && req.path != '/login' && req.path != '/user/register' && req.path != '/user/login'){
 		res.redirect('/login');
+	}else{
+		if(req.session.user){
+			app.locals.user =  req.session.user.name;
+		}
 	}
 	next();
 })

@@ -12,6 +12,8 @@ define([],function(){
         },function(res){
             if(res.code === 0){
                 $("#error").html(res.msg);
+            }else{
+                $('#login').click();
             }
         })
         event.preventDefault();

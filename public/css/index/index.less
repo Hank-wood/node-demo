@@ -1,6 +1,6 @@
 @import (reference) "../common/common.less";
 .wb-main{
-    width: 1000px;
+    // width: 1000px;
     margin: 20px auto;
 }
 #wb-con{
@@ -19,5 +19,62 @@
         padding: 5px;
         height: 68px;
         border: 1px solid @borderColor;
+    }
+    .widget{
+        margin-top: 10px;
+        overflow: hidden;
+        .send-btn{
+            .size(80px,30px);
+            font-size: 14px;
+            background-color: #ccc;
+        }
+        .adress{
+            margin-left: 10px;
+            background-color: #ccc;
+        }
+    }
+    .location{
+        vertical-align: middle;
+        input{
+            vertical-align: middle;
+        }
+    }
+}
+
+// 微博列表
+.wb-list{
+    margin: 20px;
+    border-top: 1px solid #ccc;
+    .wb-item{
+        position: relative;
+        padding: 10px 0;
+        overflow: hidden;
+        border-bottom: 1px dashed #ccc;
+        .user,.content,.date,.location{
+            line-height: 24px;
+        }
+        .user{
+            color: black;
+            font-weight: bold;
+        }
+        .content{
+            color: #666;
+        }
+        .date{
+            color: #999;
+        }
+        .location{
+            i{
+                .inline-block;
+                .size(12px);
+                margin-right: 5px;
+                img{
+                    .size(100%);
+                }
+            }
+            span{
+                color: #ccc;
+            }
+        }
     }
 }
