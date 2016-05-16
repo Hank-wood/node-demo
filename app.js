@@ -51,6 +51,8 @@ app.use(function(req,res,next){
 	}else{
 		if(req.session.user){
 			app.locals.user =  req.session.user.name;
+		}else{
+			app.locals.user = null;
 		}
 	}
 	next();

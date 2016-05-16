@@ -76,6 +76,7 @@ exports.login = function(req, res, next) {
                 msg: '用户名不存在'
             })
         }
+        console.log(result)
         bcrypt.compare(req.body.password, result[0].password, function(err, isMatch){
             if(isMatch){
                 req.session.user = result[0];

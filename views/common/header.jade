@@ -1,6 +1,7 @@
 .header
 	h1.fl
 		a(href="/") Nodejs微博
-	.user.fr
-		span #{locals.user} ｜
-		a(href="/user/logout") 注销
+	if(locals.user)
+		.user.fr
+			span #{locals.user} ｜
+			a(href="/user/logout") 注销
