@@ -23,6 +23,6 @@ module.exports = function(app) {
     app.post('/wb/delete', wb.delete);
     app.get('/wb/detail', wb.detail);
     // 文件上传
-    app.post('/file/upload', cpUpload, file.upload);
+    app.post('/file/upload', cpUpload, file.upload, wb.addImg);
 
 }

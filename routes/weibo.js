@@ -66,30 +66,20 @@ exports.delete = function(req, res, next) {
 //add img
 exports.addImg = function(req, res, next) {
     console.log(req.files)
-    // 临时路径
+    // 原路径
     var tmp_path = req.files.file.path;
-    // 指定上传后的目录
-    var target_path = '/upload/img/' + Math.random() + req.files.file.name;
+    // 新路径
+    var target_path = tmp_path + req.files.file[0].originalname.replace(/.+(\.\w+)$/,'$1');
     fs.rename(tmp_path, target_path, function(err){
         if(err){
             throw err;
         }else{
-            // 删除临时文件
-            fs.unlink(tmp_path, function(err){
-                if(err){
-                    throw err;
-                }else{
-                    res.send({
-                        code: 1,
-                        msg: '上传成功'
-                    })
-                }
+            res.send({
+                code : 1
             })
         }
     })
-    res.send({
-        code : 1
-    })
+    
 }
 
 
