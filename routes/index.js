@@ -7,7 +7,7 @@ exports.index = function(req, res, next) {
 	var data = {
 			title: '首页'
 		},
-		getWbSql = 'select * from weibo inner join user on weibo.author = user.id order by date desc';
+		getWbSql = 'select weibo.*,user.name as author_name from weibo,user where weibo.author = user.id order by weibo.date desc';
 
 	query(getWbSql, function(err, result, fields) {
 		if (err) {

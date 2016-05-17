@@ -9,16 +9,23 @@ block content
 			.wb-edit
 				textarea#wb-con
 			.widget
+				span.add-img 添加图片&nbsp;&nbsp;
 				label.location(for="location")
 					input#location(type="checkbox")
 					位置
 				span.adress
 				input(type="hidden" id="adress")
 				button.fr.send-btn 发布
+			form(action="/file/upload" method="post" enctype="multipart/form-data")
+				input(type="file" name="file")
+				input(type="submit" value="添加")
 		.wb-list
 			each item in wb_list
 				.wb-item
-					.user #{item.name}
+					.user #{item.author_name}
+						if(item.author === locals.user_id)
+							- var attributes = { 'wb_id': item.id };
+							span.fr.delete&attributes(attributes) 删除
 					.date #{item.date}
 					p.content #{item.content}
 					if(item.adress)

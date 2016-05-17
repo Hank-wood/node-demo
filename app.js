@@ -51,8 +51,10 @@ app.use(function(req,res,next){
 	}else{
 		if(req.session.user){
 			app.locals.user =  req.session.user.name;
+			app.locals.user_id =  req.session.user.id;
 		}else{
 			app.locals.user = null;
+			app.locals.user_id = null;
 		}
 	}
 	next();

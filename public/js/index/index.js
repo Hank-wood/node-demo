@@ -62,4 +62,22 @@ define([], function() {
             formAdress.val('');
         }
     })
+    $(".delete").click(function() {
+        if(confirm('确认删除？')){
+            $.ajax({
+                url: '/wb/delete',
+                type: 'post',
+                data: {
+                    id: $(this).attr('wb_id')
+                },
+                success: function(res) {
+                    if (res.code === 1) {
+                        window.location.reload();
+                    }else{
+                        console.error(res);
+                    }
+                }
+            })
+        }        
+    })
 })
