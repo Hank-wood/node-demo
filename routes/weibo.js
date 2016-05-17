@@ -20,7 +20,7 @@ exports.detail = function(req, res, next) {
 }
 //发微博
 exports.add = function(req, res, next) {
-    var insertSql = 'insert into weibo(content,author,adress) values("' + req.body.content + '","' + req.session.user.name + '","'+req.body.adress+'")';
+    var insertSql = 'insert into weibo(content,author,adress) values("' + req.body.content + '",' + req.session.user.id + ',"'+req.body.adress+'")';
     console.log(insertSql)
     if (nullReg.test(req.body.content)) {
         res.send({
@@ -32,7 +32,7 @@ exports.add = function(req, res, next) {
             if (err) {
                 res.send({
                     code: 0,
-                    msg: err
+                    data: err
                 })
             } else {
                 res.send({

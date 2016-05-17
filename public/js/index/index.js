@@ -46,6 +46,8 @@ define([], function() {
                 success: function(res) {
                     if (res.code === 1) {
                         window.location.reload();
+                    }else{
+                        console.error(res.data.code);
                     }
                 }
             })
