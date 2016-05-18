@@ -1,6 +1,5 @@
 var query = require('../config/connectMysql.js');
 var moment = require('moment');
-var async = require('async');
 
 //首页视图
 exports.index = function(req, res, next) {

@@ -2,6 +2,7 @@ extends ../common/layout
 block head
 	title #{title}
 	link(rel="stylesheet", href="css/index/index.css")
+	link(rel="stylesheet", href="common/webuploader/webuploader.css")
 	script(src="http://webapi.amap.com/maps?v=1.3&key=441023746601d52c3fca95f36f55f9e1")
 block content
 	.wb-main
@@ -17,7 +18,7 @@ block content
 				input(type="hidden" id="adress")
 				button.fr.send-btn 发布
 			form(action="/file/upload" method="post" enctype="multipart/form-data")
-				input(type="file" name="file")
+				input(type="file" name="file" multiple＝"multiple")
 				input(type="submit" value="添加")
 		.wb-list
 			each item in wb_list

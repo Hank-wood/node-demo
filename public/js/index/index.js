@@ -2,6 +2,19 @@ define([], function() {
     var adress = $(".adress"),
         formAdress = $("#adress");
 
+    var uploader = WebUploader.create({
+
+        // 文件接收服务端。
+        server: '/file/upload',
+
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: {
+            id: '.add-img',
+            multiple: true
+        }
+    });
+
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
@@ -46,8 +59,8 @@ define([], function() {
                 success: function(res) {
                     if (res.code === 1) {
                         window.location.reload();
-                    }else{
-                        console.error(res.data.code);
+                    } else {
+                        console.error(res.msg.code);
                     }
                 }
             })
@@ -55,15 +68,15 @@ define([], function() {
     })
     $("#location").change(function(event) {
         var status = event.target.checked;
-        if(status){
+        if (status) {
             getLocation();
-        }else{
+        } else {
             adress.html('');
             formAdress.val('');
         }
     })
     $(".delete").click(function() {
-        if(confirm('确认删除？')){
+        if (confirm('确认删除？')) {
             $.ajax({
                 url: '/wb/delete',
                 type: 'post',
@@ -73,11 +86,12 @@ define([], function() {
                 success: function(res) {
                     if (res.code === 1) {
                         window.location.reload();
-                    }else{
+                    } else {
                         console.error(res);
                     }
                 }
             })
-        }        
+        }
     })
+
 })
