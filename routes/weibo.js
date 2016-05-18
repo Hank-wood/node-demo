@@ -21,7 +21,7 @@ exports.detail = function(req, res, next) {
 }
 //发微博
 exports.add = function(req, res, next) {
-    var insertSql = 'insert into weibo(content,author,adress) values("' + req.body.content + '",' + req.session.user.id + ',"'+req.body.adress+'")';
+    var insertSql = 'insert into weibo(content,author,adress,img) values("' + req.body.content + '",' + req.session.user.id + ',"'+req.body.adress+'","'+req.body.img_path+'")';
 
     if (nullReg.test(req.body.content)) {
         res.send({
@@ -66,22 +66,23 @@ exports.delete = function(req, res, next) {
 //add img
 exports.addImg = function(req, res, next) {
     var files = req.files.file;
-    async.eachSeries(files, function(file, callback){
+    async.map(files, function(file, callback){
         // 原路径
         var tmp_path = req.files.file[0].path;
         // 新路径
         var target_path = tmp_path + req.files.file[0].originalname.replace(/.+(\.\w+)$/,'$1');
         fs.rename(tmp_path, target_path, function(err){
-            callback(err);
+            callback(err, target_path);
         })
-    }, function(err){
+    }, function(err, result){
         if(err) throw err;
         res.send({
             code : 1,
-            msg: '上传成功'
+            msg: {
+                img: result
+            }
         })
-    })
-    
+    })   
     
 }
 

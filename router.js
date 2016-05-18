@@ -4,8 +4,8 @@ var wb = require('./routes/weibo');
 var user = require('./routes/users');
 var file = require('./routes/file');
 var multer = require('multer');
-var upload = multer({ dest: './upload/img/' });
-var cpUpload = upload.fields([{name: 'file', maxCount: 3}]);
+var uploadImg = multer({ dest: './upload/img/' });
+var cpUpload = uploadImg.fields([{name: 'file', maxCount: 3}]);
 
 module.exports = function(app) {
     // 登录注册

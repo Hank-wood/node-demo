@@ -17,9 +17,6 @@ block content
 				span.adress
 				input(type="hidden" id="adress")
 				button.fr.send-btn 发布
-			form(action="/file/upload" method="post" enctype="multipart/form-data")
-				input(type="file" name="file" multiple＝"multiple")
-				input(type="submit" value="添加")
 		.wb-list
 			each item in wb_list
 				.wb-item

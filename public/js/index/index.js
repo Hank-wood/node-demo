@@ -1,4 +1,4 @@
-define([], function() {
+define(['common/webuploader/webuploader'], function() {
     var adress = $(".adress"),
         formAdress = $("#adress");
 
@@ -14,7 +14,9 @@ define([], function() {
             multiple: true
         }
     });
-
+    uploader.on('uploadSuccess', function(file){
+        console.log(file)
+    })
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
@@ -41,6 +43,7 @@ define([], function() {
     $(".send-btn").on('click', function() {
         var wbContent = $('#wb-con').val(),
             adress = $('#adress').val(),
+            addImgBtn = $('.add-img'),
             reg = /^\s*$/;
         if (reg.test(wbContent)) {
             alert('说点什么吧')
@@ -54,7 +57,8 @@ define([], function() {
                 type: 'post',
                 data: {
                     content: wbContent,
-                    adress: adress
+                    adress: adress,
+                    img_path: addImgBtn.attr('img-path')
                 },
                 success: function(res) {
                     if (res.code === 1) {
