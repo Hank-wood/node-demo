@@ -30,6 +30,8 @@ define([],function(){
         },function(res){
             if(res.code == 1){
                 location.href = "/"
+            }else{
+                $("#error").html('账号或密码错误');
             }
         })
         event.preventDefault();
