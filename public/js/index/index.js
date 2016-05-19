@@ -1,12 +1,13 @@
-define(['common/webuploader/webuploader'], function() {
+define(['common/webuploader/webuploader.min'], function(webuploader) {
     var adress = $(".adress"),
-        formAdress = $("#adress");
+        formAdress = $("#adress"),
+        imgGroup = $('.wb-img');
 
-    var uploader = WebUploader.create({
+    var uploader = webuploader.create({
 
         // 文件接收服务端。
         server: '/file/upload',
-
+        auto: true,
         // 选择文件的按钮。可选。
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.
         pick: {
@@ -14,9 +15,24 @@ define(['common/webuploader/webuploader'], function() {
             multiple: true
         }
     });
-    uploader.on('uploadSuccess', function(file){
-        console.log(file)
+    // 微博添加的图片
+    uploader.img = [];
+    uploader.on('fileQueued', function(file) {
+        uploader.makeThumb(file, function(err, ret) {
+                if (err) {
+                    imgGroup.append('<a class="inline-block">预览错误</a>');
+                } else {
+                    imgGroup.append('<a class="inline-block"><img src=' + ret + ' /></a>');
+                }
+            })
+            // imgGroup.append('<img src='+file.src+'/>')
+    }).on('uploadSuccess', function(file, res) {
+        if (res.code === 1) {
+            uploader.img.length > 0 ? uploader.img.push(res.msg.img[0]) : uploader.img = [res.msg.img[0]];
+        }
+        console.log(uploader.img)
     })
+
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
@@ -58,13 +74,13 @@ define(['common/webuploader/webuploader'], function() {
                 data: {
                     content: wbContent,
                     adress: adress,
-                    img_path: addImgBtn.attr('img-path')
+                    img_path: uploader.img.join(',')
                 },
                 success: function(res) {
                     if (res.code === 1) {
                         window.location.reload();
                     } else {
-                        console.error(res.msg.code);
+                        console.error(res.data.code);
                     }
                 }
             })

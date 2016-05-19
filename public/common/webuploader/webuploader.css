@@ -8,13 +8,17 @@
 }
 .webuploader-pick {
 	position: relative;
+	display: inline-block;
 	cursor: pointer;
-	margin: 0 auto;
+	background: #00b7ee;
 	padding: 10px 15px;
 	color: #fff;
 	text-align: center;
 	border-radius: 3px;
-	/*overflow: hidden;*/
+	overflow: hidden;
+}
+.webuploader-pick-hover {
+	background: #00a2d4;
 }
 
 .webuploader-pick-disable {

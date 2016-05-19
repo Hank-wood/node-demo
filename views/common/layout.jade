@@ -13,6 +13,13 @@ html
     script(src="js/common/jquery-1.11.3.min.js")
     script(src="js/common/require.js")
     script.
+        requirejs.config({
+            baseUrl: '/',
+            paths: {
+                'jquery': 'js/common/jquery-1.11.3.min'
+            }
+        })
+    script.
         require(['js/common/common.js'],function(){})
     block footer
     include ./footer.jade

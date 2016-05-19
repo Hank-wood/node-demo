@@ -22,7 +22,7 @@ exports.detail = function(req, res, next) {
 //发微博
 exports.add = function(req, res, next) {
     var insertSql = 'insert into weibo(content,author,adress,img) values("' + req.body.content + '",' + req.session.user.id + ',"'+req.body.adress+'","'+req.body.img_path+'")';
-
+console.log(insertSql)
     if (nullReg.test(req.body.content)) {
         res.send({
             code: 0,
