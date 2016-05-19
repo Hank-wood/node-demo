@@ -42,6 +42,7 @@ app.use(session({
 	secret: 'bolg'
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/upload',express.static(path.join(__dirname, 'upload')));
 
 app.use(function(req,res,next){
 	// console.log(req.path);

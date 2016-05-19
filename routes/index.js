@@ -17,6 +17,7 @@ exports.index = function(req, res, next) {
 		}
 		for (var i = 0; i < result.length; i++) {
 			result[i].date = moment(result[i].date).format('YYYY-MM-DD HH:mm:ss');
+			result[i].img && (result[i].img = result[i].img.split(','));
 		}
 		data.wb_list = result;
 		res.render('index/index', data);

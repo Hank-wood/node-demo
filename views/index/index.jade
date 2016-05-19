@@ -27,6 +27,10 @@ block content
 							span.fr.delete&attributes(attributes) 删除
 					.date #{item.date}
 					p.content #{item.content}
+					.img-group
+						each img in item.img
+							a
+								img(src="#{img}", alt="wb-img")
 					if(item.adress)
 						.location
 							i

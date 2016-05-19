@@ -22,7 +22,7 @@ exports.detail = function(req, res, next) {
 //发微博
 exports.add = function(req, res, next) {
     var insertSql = 'insert into weibo(content,author,adress,img) values("' + req.body.content + '",' + req.session.user.id + ',"'+req.body.adress+'","'+req.body.img_path+'")';
-console.log(insertSql)
+
     if (nullReg.test(req.body.content)) {
         res.send({
             code: 0,
@@ -48,19 +48,46 @@ console.log(insertSql)
 exports.delete = function(req, res, next) {
     var deleteSql = 'delete from weibo where id='+ req.body.id;
     if(req.body.id !== undefined){
-        query(deleteSql, function(err, result, fields){
+        query('select * from weibo where id='+req.body.id, function(err, result){
             if(err){
-                res.send({
-                    code: 0,
-                    msg: err
-                })
-            }else{
-                res.send({
-                    code: 1,
-                    msg: 'success'
-                })
+                throw err;
             }
+            if(result){
+                query(deleteSql, function(err, rows, fields){
+                    if(err){
+                        throw err;
+                    }else{
+                        // 删除微博图片
+                        if(result[0].img){
+                            result[0].img = result[0].img.split(',');
+                            async.each(result[0].img, function(img,callback){
+                                fs.unlink(img, function(err){
+                                    if(err) throw err;
+                                    callback(err);
+                                })
+                            }, function(err){
+                                if(err){
+                                    throw err;
+                                }     
+                                res.send({
+                                    code: 1,
+                                    msg: 'success'
+                                })                           
+                            })
+                        }else{
+                            res.send({
+                                code: 1,
+                                msg: 'success'
+                            })
+                        }
+                        
+                    }
+                })
+                    
+            }
+            
         })
+        
     }
 }
 //add img
