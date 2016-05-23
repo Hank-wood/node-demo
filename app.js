@@ -60,7 +60,26 @@ app.use(function(req,res,next){
 	}
 	next();
 })
+/*********/
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
+http.listen(8000);
+
+app.get('/chat', function(req, res){
+    io.sockets.emit('change', {
+        pageIndex: 123
+    })
+    res.render('chat/index')
+})
+io.on('connection', function(socket){
+	console.log(123)
+	socket.emit('news', {hello: 'world'})
+	socket.on('my other event', function(data){
+		console.log(data)
+	})
+})
+/*********/
 routes(app);
 
 // catch 404 and forward to error handler
