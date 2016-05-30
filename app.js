@@ -1,14 +1,16 @@
 var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var routes = require('./router');
-var session = require('express-session');
-var RedisStore = require('connect-redis')(session);
-var app = express();
-var redis = require('redis'),
+	path = require('path'),
+	favicon = require('serve-favicon'),
+	logger = require('morgan'),
+	cookieParser = require('cookie-parser'),
+	bodyParser = require('body-parser'),
+	routes = require('./router'),
+	session = require('express-session'),
+	RedisStore = require('connect-redis')(session),
+	app = express(),
+	http = require('http').Server(app),
+	io = require('socket.io')(http),
+	redis = require('redis'),
     client = redis.createClient({
     	host: 'localhost'
     });
@@ -60,26 +62,7 @@ app.use(function(req,res,next){
 	}
 	next();
 })
-/*********/
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
 
-http.listen(8000);
-
-app.get('/chat', function(req, res){
-    io.sockets.emit('change', {
-        pageIndex: 123
-    })
-    res.render('chat/index')
-})
-io.on('connection', function(socket){
-	console.log(123)
-	socket.emit('news', {hello: 'world'})
-	socket.on('my other event', function(data){
-		console.log(data)
-	})
-})
-/*********/
 routes(app);
 
 // catch 404 and forward to error handler
@@ -113,5 +96,21 @@ app.use(function(err, req, res, next) {
 	});
 });
 
+io.on('connection', function(socket){
+	// 消息发送者id
+	var id = socket.id;
+	var rooms = socket.adapter.rooms;
+
+    socket.broadcast.emit('user-login', {user: app.locals.user})
+    // 客户端发送消息
+    socket.on('post-message', function(data){
+        socket.broadcast.emit('get-message', {
+        	user: app.locals.user,
+        	msg: data
+        })
+    })
+})
+
+http.listen(8000);
 app.listen(3000);
 module.exports = app;

@@ -3,6 +3,7 @@ var index = require('./routes/index');
 var wb = require('./routes/weibo');
 var user = require('./routes/users');
 var file = require('./routes/file');
+var chat = require('./routes/chat');
 var multer = require('multer');
 var uploadImg = multer({ dest: './upload/img/' });
 var cpUpload = uploadImg.fields([{name: 'file', maxCount: 3}]);
@@ -21,5 +22,7 @@ module.exports = function(app) {
     app.get('/wb/detail', wb.detail);
     // 文件上传
     app.post('/file/upload', cpUpload, file.upload, wb.addImg);
+    // 聊天室
+    app.get('/chat', chat.index);
 
 }

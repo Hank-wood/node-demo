@@ -1,0 +1,57 @@
+@import (reference) "../common/common.less";
+.chat-room{
+    margin: 20px;
+    padding: 10px;
+    height: 800px;
+    border: 1px solid @borderColor;
+    overflow-x: hidden;
+    overflow-y: auto;
+    .msg-item{
+        margin: 10px 0;
+        .user-name{
+            color: @blue;
+            margin-right: 6px;
+            vertical-align: top;
+            font-size: 12px;
+            line-height: 16px;
+            .block;
+        }
+        .msg-con{
+            .inline-block;
+            font-size: 14px;
+            max-width: 70%;
+            line-height: 20px;
+            padding: 4px 14px;
+            border-radius: 15px;
+            background-color: @borderColor;
+        }
+        &.self{
+            text-align: right;
+            .msg-con{
+                background-color: @blue;
+                color: white;
+            }
+        }
+    }
+    .system-msg{
+        height: 30px;
+        line-height: 30px;
+        color: @borderColor;
+    }
+}
+.msg-edit{
+    margin: 0 20px;
+    input{
+        height: 30px;
+    }
+    input[type="text"]{
+        width: 88%;
+        margin-right: 2%;
+    }
+    input[type="submit"]{
+        width: 8%;
+        cursor: pointer;
+        background-color: @blue;
+        color: white;
+    }
+}

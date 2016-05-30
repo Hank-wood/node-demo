@@ -1,17 +1,21 @@
-module.exports = function(app) {
-    var http = require('http').Server(app);
-    var io = require('socket.io')(http);
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
-    http.listen(8000);
 
-    app.get('/chat', function(req, res){
-        res.render('chat/index');
-    })
-    io.on('connection', function(socket){
-        socket.emit('news', {hello: 'world'})
-        socket.on('my other event', function(data){
-            console.log(data);
+io.on('connection', function(socket){
+	var id = socket.id;
+	var rooms = socket.adapter.rooms;
+
+    socket.emit('user-login', {user: app.locals.user})
+    // 客户端发送消息
+    socket.on('post-message', function(data){
+        socket.broadcast.emit('get-message', {
+        	user: app.locals.user,
+        	msg: data
         })
     })
+})
 
-}
+http.listen(8000);

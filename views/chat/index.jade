@@ -1,8 +1,21 @@
-//- script(src="js/common/socket.io.js")
-script(src="https://cdn.socket.io/socket.io-1.4.5.js")
-script.
-    var socket = io.connect('http://localhost:8000');
-    socket.on('news', function (data) {
-      console.log(data);
-      socket.emit('my other event', { my: 'data' });
-    });
+extends ../common/layout
+block head
+    title #{title}
+    link(rel="stylesheet", href="css/chat/index.css")
+block content
+    .chat-room
+
+    .msg-edit
+        input#message(type="text")
+        input#send(type="submit" value="发送")
+block footer
+    script.
+        require(['js/chat/index.js'])
+        
+    script#msg-tpl(type="text/html").
+        <div class="msg-item {{if self}}self{{/if}}">
+            <span class="user-name">{{user}}</span>
+            <p class="msg-con">{{msg}}</p>
+        </div>
+    script#login-msg-tpl(type="text/html").
+        <p class="system-msg">系统消息：{{user}}来了</p>
