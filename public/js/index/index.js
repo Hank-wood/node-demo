@@ -1,7 +1,13 @@
-define(['common/webuploader/webuploader.min'], function(webuploader) {
-    var adress = $(".adress"),
+define([
+    'common/webuploader/webuploader.min',
+    'js/common/template'
+], function(webuploader, template) {
+    var START = 0,
+        LIMIT = 10,
+        adress = $(".adress"),
         formAdress = $("#adress"),
-        imgGroup = $('.wb-img');
+        imgGroup = $('.wb-img'),
+        wbGroup = $('.wb-list');
 
     var uploader = webuploader.create({
 
@@ -30,7 +36,6 @@ define(['common/webuploader/webuploader.min'], function(webuploader) {
         if (res.code === 1) {
             uploader.img.length > 0 ? uploader.img.push(res.msg.img[0]) : uploader.img = [res.msg.img[0]];
         }
-        console.log(uploader.img)
     })
 
     function getLocation() {
@@ -60,6 +65,7 @@ define(['common/webuploader/webuploader.min'], function(webuploader) {
         var wbContent = $('#wb-con').val(),
             adress = $('#adress').val(),
             addImgBtn = $('.add-img'),
+            wbGroup = $('.wb-list'),
             reg = /^\s*$/;
         if (reg.test(wbContent)) {
             alert('说点什么吧')
@@ -78,7 +84,15 @@ define(['common/webuploader/webuploader.min'], function(webuploader) {
                 },
                 success: function(res) {
                     if (res.code === 1) {
-                        window.location.reload();
+                        if(wbGroup.find('.wb-item').length > 0){
+                            $(template('wb-tpl', res.data)).insertBefore( wbGroup.find('.wb-item').eq(0) );
+                        }else{
+                            wbGroup.append( template('wb-tpl', res.data) );
+                        }
+                        $('#adress,#wb-con').val('');
+                        imgGroup.html('');
+                        uploader.reset();
+
                     } else {
                         console.error(res.data.code);
                     }
@@ -114,4 +128,22 @@ define(['common/webuploader/webuploader.min'], function(webuploader) {
         }
     })
 
+    function getList(data){
+        $.ajax({
+            url: '/wb/list',
+            type: 'post',
+            data: data,
+            success: function(res) {
+                if (res.code === 1) {
+                    wbGroup.html( template('wb-tpl', res) );
+                } else {
+                    console.error(res);
+                }
+            }
+        })
+    }
+    getList({
+        start: START,
+        limit: LIMIT
+    })
 })

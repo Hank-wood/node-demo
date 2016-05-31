@@ -19,25 +19,41 @@ block content
 				button.fr.send-btn 发布
 			.wb-img
 		.wb-list
-			each item in wb_list
-				.wb-item
-					.user #{item.author_name}
-						if(item.author === locals.user_id)
-							- var attributes = { 'wb_id': item.id };
-							span.fr.delete&attributes(attributes) 删除
-					.date #{item.date}
-					p.content #{item.content}
-					.img-group
-						each img in item.img
-							a
-								img(src="#{img}", alt="wb-img")
-					if(item.adress)
-						.location
-							i
-								img(src="/images/common/Location_24px.png", alt="adress")
-							span #{item.adress}
+			//- each item in wb_list
+			//- 	.wb-item
+			//- 		.user #{item.author_name}
+			//- 			if(item.author === locals.user_id)
+			//- 				- var attributes = { 'wb_id': item.id };
+			//- 				span.fr.delete&attributes(attributes) 删除
+			//- 		.date #{item.date}
+			//- 		p.content #{item.content}
+			//- 		.img-group
+			//- 			each img in item.img
+			//- 				a
+			//- 					img(src="#{img}", alt="wb-img")
+			//- 		if(item.adress)
+			//- 			.location
+			//- 				i
+			//- 					img(src="/images/common/Location_24px.png", alt="adress")
+			//- 				span #{item.adress}
+		.page
+			a 上一页
+			a 下一页
 
 block footer
 	script.
 		require(['js/index/index.js'])
+	script#wb-tpl(type="text/html").
+		{{each data as item i}}
+		<div class="wb-item">
+			<div class="user">{{item.user}}</div>
+			<div class="date">{{item.date}}</div>
+			<p class="content">{{item.content}}</p>
+			<div class="img-group">
+				{{each item.img as value i}}
+				<a><img src="{{value}}" alt="wb-img" /></a>
+				{{/each}}
+			</div>
+		</div>
+		{{/each}}
 		

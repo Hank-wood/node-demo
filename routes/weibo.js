@@ -38,7 +38,13 @@ exports.add = function(req, res, next) {
             } else {
                 res.send({
                     code: 1,
-                    msg: 'success'
+                    data: [{
+                        user: req.session.user.name,
+                        content: req.body.content,
+                        date: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+                        adress: req.body.adress,
+                        img: req.body.img_path ? req.body.img_path.split(',') : []                        
+                    }]
                 })
             }
         })
@@ -112,5 +118,38 @@ exports.addImg = function(req, res, next) {
     })   
     
 }
+exports.list = function(req, res, next){
+    var start = req.body.start || 0,
+        limit = req.body.limit || 10,
+        getWbSql = 'select weibo.*,user.name as author_name from weibo,user where weibo.author = user.id order by weibo.date desc limit '+ start + ',' + limit,
+        getCount = 'select count(*) as total from weibo';
 
+    query(getWbSql, function(err, result, fields) {
+        if (err) {
+            res.send({
+                code: 0,
+                data: err
+            })
+        }
+        for (var i = 0; i < result.length; i++) {
+            result[i].date = moment(result[i].date).format('YYYY-MM-DD HH:mm:ss');
+            result[i].img && (result[i].img = result[i].img.split(','));
+        }
+        query(getCount, function(gerr, gresult, gfields){
+            if(gerr){
+                res.send({
+                    code: 0,
+                    data: gerr
+                })
+            }
+            res.send({
+                code: 1,
+                title: '首页',
+                data: result,
+                total: gresult[0].total
+            });
+        })
+        
+    })
+}
 

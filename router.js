@@ -19,6 +19,7 @@ module.exports = function(app) {
     // 文章
     app.post('/wb/add', wb.add);
     app.post('/wb/delete', wb.delete);
+    app.post('/wb/list', wb.list);
     app.get('/wb/detail', wb.detail);
     // 文件上传
     app.post('/file/upload', cpUpload, file.upload, wb.addImg);
